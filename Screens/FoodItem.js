@@ -5,6 +5,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import AsyncStorage from '@react-native-community/async-storage';
 import REQUEST_COUPON_CODE from '../GraphQL/Queries/requestCoupon';
 import {useQuery} from '@apollo/client';
 
@@ -19,7 +20,10 @@ const FoodItem = ({ route, navigation }) => {
             clientID
         }
     });
-
+    if (data && data.getCouponByFoodItem.code){
+        AsyncStorage.setItem('code', data.getCouponByFoodItem.code);
+    }
+    
     return (
         <>
             <Text 
@@ -73,8 +77,8 @@ const FoodItem = ({ route, navigation }) => {
         { clicked && 
             (
                 <>
-                    <Text> Here's your coupon code: {data.coupon.code}</Text>
-                    <Text> Expiry date: {data.coupon.expiryDate} </Text>
+                    <Text> Here's your coupon code: {data.getCouponByFoodItem.code}</Text>
+                    <Text> Expiry date: {data.getCouponByFoodItem.expiryDate} </Text>
                 </>
             )
         }
