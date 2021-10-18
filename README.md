@@ -1,6 +1,6 @@
 # EpicoreMobile
 
-This repo is for mobile version for this repo : https://github.com/Salah856/Epicore-Full-Stack-task
+This repo is for mobile version for this repo:   https://github.com/Salah856/Epicore-Full-Stack-task
 
 
 - The mobile client will request coupon once clicked the button of request coupon in food item screen.
