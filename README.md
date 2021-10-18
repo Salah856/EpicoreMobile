@@ -7,3 +7,9 @@ This repo is for mobile version for this repo : https://github.com/Salah856/Epic
 - Then he walks into the merchant and then merchant redeem coupon from the web app.
 - Then the mobile client gets notified using subscriptions in GraphQL. 
 
+
+
+N.B: 
+
+I tried to make data base for food items static in db.js: list of food item objects. 
+
