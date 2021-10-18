@@ -21,7 +21,7 @@ const FoodItem = ({ route, navigation }) => {
         }
     });
     if (data && data.getCouponByFoodItem.code){
-        AsyncStorage.setItem('code', data.getCouponByFoodItem.code);
+        AsyncStorage.setItem('code', Number(data.getCouponByFoodItem.code));
     }
     
     return (
