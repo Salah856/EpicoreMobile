@@ -1,17 +1,35 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { 
-    StyleSheet, View, FlatList, 
+    StyleSheet, View, FlatList,
     TouchableOpacity, ImageBackground, 
 } from 'react-native';
 
+import AsyncStorage from '@react-native-community/async-storage';
 import foodItems from '../db';
-
+import REDEEM_COUPON_SUBSCRIPTION from '../GraphQL/Subscriptions/redeemCouponSubscription';
+import {useSubscription} from '@apollo/client'; 
 import generateClientID from '../utils/generateClientID';
+import createNotificationAlert from '../utils/createNotificationsAlert';
 
 const FoodItems = ({ navigation })=>{
 
     const clientID = generateClientID();
+    const {data, loading, error} = useSubscription(
+            REDEEM_COUPON_SUBSCRIPTION,
+            {
+                variables: {         
+                    code: AsyncStorage.getItem('code')
+                }
+            }
+        )
+    
+    if (data && data.redeemedCoupon){
+        const {text, redeemed} = data.redeemedCoupon;
+        if(redeemed && clientID == data.redeemedCoupon.clientID){
+            createNotificationAlert(text);
+        } 
+    }
 
     return (
         <View style={styles.container}>
