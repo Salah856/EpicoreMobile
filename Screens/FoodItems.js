@@ -5,9 +5,13 @@ import {
     TouchableOpacity, ImageBackground, 
 } from 'react-native';
 
-import foodItems from '../db'; 
+import foodItems from '../db';
+
+import generateClientID from '../utils/generateClientID';
 
 const FoodItems = ({ navigation })=>{
+
+    const clientID = generateClientID();
 
     return (
         <View style={styles.container}>
@@ -22,6 +26,7 @@ const FoodItems = ({ navigation })=>{
                                 navigation.navigate('FoodItem', {
                                     foodItemName: item.foodItemName,
                                     foodImageSrc: item.foodImageSrc,
+                                    clientID, 
                                 }) 
                               }
                             }
