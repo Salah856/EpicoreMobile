@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Text, 
     ImageBackground, 
     TouchableOpacity
 } from 'react-native';
 
+import REQUEST_COUPON_CODE from '../GraphQL/Queries/requestCoupon';
+import {useQuery} from '@apollo/client';
+
+
 const FoodItem = ({ route, navigation }) => {
     
-    const { foodItemName, foodImageSrc } = route.params;
+    const { foodItemName, foodImageSrc, clientID } = route.params;
+    const [clicked, setClicked] = useState(false);
+    const {loading, error, data} = useQuery(REQUEST_COUPON_CODE, {
+        variables:{
+            foodItemName, 
+            clientID
+        }
+    });
 
     return (
         <>
@@ -45,7 +56,7 @@ const FoodItem = ({ route, navigation }) => {
                 }}
                 onPress={
                     () => {
-                        console.log("salah")
+                        setClicked(true); 
                     }
                 }
             >
@@ -58,6 +69,15 @@ const FoodItem = ({ route, navigation }) => {
                     Request Coupon
                 </Text>
             </TouchableOpacity>
+        
+        { clicked && 
+            (
+                <>
+                    <Text> Here's your coupon code: {data.coupon.code}</Text>
+                    <Text> Expiry date: {data.coupon.expiryDate} </Text>
+                </>
+            )
+        }
         </>
     )
 
